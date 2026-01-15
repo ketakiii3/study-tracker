@@ -25,23 +25,23 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
     
     :root {
-      --bg-primary: #0a0a0f;
-      --bg-secondary: #12121a;
-      --bg-tertiary: #1a1a24;
-      --bg-card: linear-gradient(135deg, rgba(26, 26, 36, 0.8) 0%, rgba(18, 18, 26, 0.9) 100%);
-      --text-primary: #f5f5f7;
-      --text-secondary: #a1a1aa;
-      --text-muted: #71717a;
-      --accent-purple: #a78bfa;
-      --accent-blue: #60a5fa;
-      --accent-green: #4ade80;
-      --accent-orange: #fb923c;
-      --accent-pink: #f472b6;
-      --accent-red: #f87171;
-      --accent-yellow: #facc15;
-      --border-subtle: rgba(255, 255, 255, 0.06);
-      --border-medium: rgba(255, 255, 255, 0.1);
-      --glass: rgba(255, 255, 255, 0.03);
+      --bg-primary: #0f111a;
+      --bg-secondary: #141826;
+      --bg-tertiary: #1b2030;
+      --bg-card: linear-gradient(135deg, rgba(27, 32, 48, 0.92) 0%, rgba(20, 24, 38, 0.92) 100%);
+      --text-primary: #f2f4f8;
+      --text-secondary: #c0c6d4;
+      --text-muted: #8a93a6;
+      --accent-purple: #c9b6ff;
+      --accent-blue: #a7d4ff;
+      --accent-green: #a9e9d2;
+      --accent-orange: #ffcaa3;
+      --accent-pink: #f7b7d3;
+      --accent-red: #f7a6a6;
+      --accent-yellow: #ffe6a7;
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-medium: rgba(255, 255, 255, 0.14);
+      --glass: rgba(255, 255, 255, 0.05);
       --radius-sm: 8px;
       --radius-md: 12px;
       --radius-lg: 16px;
@@ -82,10 +82,10 @@
     const DataContext = createContext();
     
     const defaultCourses = [
-      { id: '1', code: 'COMS6706E', name: 'Advanced Spoken Language Processing', color: '#a78bfa' },
-      { id: '2', code: 'COMS6998E', name: 'Topics in Computer Science', color: '#60a5fa' },
-      { id: '3', code: 'STAT4243GU', name: 'Applied Data Science', color: '#4ade80' },
-      { id: '4', code: 'COMS4111W', name: 'Introduction to Databases', color: '#fb923c' },
+      { id: '1', code: 'COMS6706E', name: 'Advanced Spoken Language Processing', color: '#c9b6ff' },
+      { id: '2', code: 'COMS6998E', name: 'Topics in Computer Science', color: '#a7d4ff' },
+      { id: '3', code: 'STAT4243GU', name: 'Applied Data Science', color: '#a9e9d2' },
+      { id: '4', code: 'COMS4111W', name: 'Introduction to Databases', color: '#ffcaa3' },
     ];
     
     const assignmentTypes = ['Reading', 'Homework', 'Prelab', 'Lab Report', 'Presentation', 'Project', 'Paper', 'Quiz', 'Exam'];
@@ -200,12 +200,19 @@
     
     // ============ COMPONENTS ============
     const Card = ({ children, style = {}, ...props }) => (
-      <motion.div style={{ background: 'var(--bg-card)', borderRadius: 'var(--radius-lg)', border: '1px solid var(--border-subtle)', backdropFilter: 'blur(20px)', ...style }} {...props}>{children}</motion.div>
+      <motion.div
+        whileHover={{ y: -3, rotateX: 2, rotateY: -2, transformPerspective: 800 }}
+        transition={{ type: "spring", stiffness: 200, damping: 20 }}
+        style={{ background: 'var(--bg-card)', borderRadius: 'var(--radius-lg)', border: '1px solid var(--border-subtle)', backdropFilter: 'blur(20px)', transformStyle: 'preserve-3d', ...style }}
+        {...props}
+      >
+        {children}
+      </motion.div>
     );
     
     const Button = ({ children, variant = 'primary', size = 'md', style = {}, onClick, ...props }) => {
       const variants = {
-        primary: { background: 'linear-gradient(135deg, #a78bfa 0%, #818cf8 100%)', color: '#fff', border: 'none' },
+        primary: { background: 'linear-gradient(135deg, #c9b6ff 0%, #818cf8 100%)', color: '#fff', border: 'none' },
         secondary: { background: 'var(--glass)', color: 'var(--text-primary)', border: '1px solid var(--border-medium)' },
         ghost: { background: 'transparent', color: 'var(--text-secondary)', border: 'none' },
       };
@@ -213,8 +220,8 @@
       
       return (
         <motion.button
-          whileHover={{ scale: 1.03, boxShadow: '0 5px 20px rgba(167, 139, 250, 0.25)' }}
-          whileTap={{ scale: 0.97 }}
+          whileHover={{ scale: 1.03, y: -1, rotateX: 2, rotateY: -2, transformPerspective: 800, boxShadow: '0 8px 24px rgba(201, 182, 255, 0.28)' }}
+          whileTap={{ scale: 0.97, rotateX: 0, rotateY: 0, transformPerspective: 800 }}
           onClick={onClick}
           style={{ ...variants[variant], ...sizes[size], borderRadius: 'var(--radius-md)', fontFamily: 'inherit', fontWeight: 600, cursor: 'pointer', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '8px', ...style }}
           {...props}
@@ -245,12 +252,12 @@
       </div>
     );
     
-    const Badge = ({ children, color = '#a78bfa' }) => (
+    const Badge = ({ children, color = '#c9b6ff' }) => (
       <span style={{ display: 'inline-flex', padding: '4px 10px', borderRadius: '20px', fontSize: '11px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px', background: `${color}20`, color: color, border: `1px solid ${color}40` }}>{children}</span>
     );
     
     const StatusBadge = ({ status }) => {
-      const colors = { 'Not Started': '#71717a', 'In Progress': '#60a5fa', 'Complete': '#4ade80', 'Submitted': '#a78bfa' };
+      const colors = { 'Not Started': '#71717a', 'In Progress': '#a7d4ff', 'Complete': '#a9e9d2', 'Submitted': '#c9b6ff' };
       return <Badge color={colors[status] || '#71717a'}>{status}</Badge>;
     };
     
@@ -389,7 +396,7 @@
           
           <StaggerContainer>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '12px', marginBottom: '28px' }}>
-              {[{ label: 'Overdue', value: overdue.length, color: '#f87171', icon: '⚠️' }, { label: 'In Progress', value: inProgress, color: '#60a5fa', icon: '🔄' }, { label: 'Completed', value: completed, color: '#4ade80', icon: '✓' }, { label: 'Total', value: assignments.length, color: '#a78bfa', icon: '📚' }].map((stat) => (
+              {[{ label: 'Overdue', value: overdue.length, color: '#f7a6a6', icon: '⚠️' }, { label: 'In Progress', value: inProgress, color: '#a7d4ff', icon: '🔄' }, { label: 'Completed', value: completed, color: '#a9e9d2', icon: '✓' }, { label: 'Total', value: assignments.length, color: '#c9b6ff', icon: '📚' }].map((stat) => (
                 <StaggerItem key={stat.label}>
                   <Card style={{ padding: '18px' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
@@ -409,7 +416,7 @@
             <FadeInView delay={0.2}>
               <motion.div animate={{ boxShadow: ['0 0 0 0 rgba(248,113,113,0)', '0 0 20px 5px rgba(248,113,113,0.2)', '0 0 0 0 rgba(248,113,113,0)'] }} transition={{ duration: 2, repeat: Infinity }} style={{ background: 'linear-gradient(135deg, rgba(248,113,113,0.15) 0%, rgba(248,113,113,0.05) 100%)', borderRadius: 'var(--radius-lg)', border: '1px solid rgba(248,113,113,0.3)', padding: '16px 20px', marginBottom: '28px', display: 'flex', alignItems: 'center', gap: '12px' }}>
                 <motion.span animate={{ scale: [1, 1.2, 1] }} transition={{ duration: 1, repeat: Infinity }} style={{ fontSize: '24px' }}>🔥</motion.span>
-                <div><p style={{ fontWeight: 600, color: '#f87171', marginBottom: '2px' }}>{overdue.length} overdue {overdue.length === 1 ? 'task' : 'tasks'}</p><p style={{ fontSize: '13px', color: 'var(--text-muted)' }}>Don't worry, you've got this!</p></div>
+                <div><p style={{ fontWeight: 600, color: '#f7a6a6', marginBottom: '2px' }}>{overdue.length} overdue {overdue.length === 1 ? 'task' : 'tasks'}</p><p style={{ fontSize: '13px', color: 'var(--text-muted)' }}>Don't worry, you've got this!</p></div>
               </motion.div>
             </FadeInView>
           )}
@@ -432,7 +439,7 @@
                   <Card key={task.id} style={{ padding: '16px 18px', display: 'flex', alignItems: 'center', gap: '14px', borderLeft: `3px solid ${course.color}` }}>
                     <div style={{ width: '42px', height: '42px', borderRadius: 'var(--radius-md)', background: `${course.color}15`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '18px', flexShrink: 0 }}>{task.type === 'Reading' ? '📖' : task.type === 'Homework' ? '📝' : task.type === 'Exam' ? '📋' : task.type === 'Project' ? '🚀' : '📄'}</div>
                     <div style={{ flex: 1, minWidth: 0 }}><p style={{ fontWeight: 600, fontSize: '14px', marginBottom: '4px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{task.title}</p><div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '12px', color: 'var(--text-muted)' }}><span style={{ color: course.color }}>{course.code}</span><span>•</span><span>{task.type}</span></div></div>
-                    <div style={{ textAlign: 'right', flexShrink: 0 }}><p style={{ fontSize: '13px', fontWeight: 600, color: new Date(task.dueDate) <= today ? '#f87171' : 'var(--text-primary)' }}>{formatDate(task.dueDate)}</p><StatusBadge status={task.status} /></div>
+                    <div style={{ textAlign: 'right', flexShrink: 0 }}><p style={{ fontSize: '13px', fontWeight: 600, color: new Date(task.dueDate) <= today ? '#f7a6a6' : 'var(--text-primary)' }}>{formatDate(task.dueDate)}</p><StatusBadge status={task.status} /></div>
                   </Card>
                 ); })}
               </CardStack>
@@ -490,7 +497,7 @@
                       <Card key={task.id} style={{ padding: '14px 16px', borderLeft: `3px solid ${course.color}`, opacity: done ? 0.6 : 1 }}>
                         <div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
                           <motion.button whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} onClick={() => setAssignments(prev => prev.map(a => a.id === task.id ? { ...a, status: done ? 'Not Started' : 'Complete' } : a))} style={{ width: '22px', height: '22px', borderRadius: '6px', border: done ? 'none' : '2px solid var(--border-medium)', background: done ? 'var(--accent-green)' : 'transparent', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', flexShrink: 0, marginTop: '2px' }}>{done && Icons.check}</motion.button>
-                          <div style={{ flex: 1, minWidth: 0 }}><p style={{ fontWeight: 600, fontSize: '14px', marginBottom: '6px', textDecoration: done ? 'line-through' : 'none', color: done ? 'var(--text-muted)' : 'var(--text-primary)' }}>{task.title}</p><div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}><span style={{ fontSize: '12px', color: course.color, fontWeight: 500 }}>{course.code}</span><span style={{ fontSize: '12px', color: isOverdue ? '#f87171' : 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: '4px' }}>{Icons.clock}{new Date(task.dueDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}{isOverdue && ' (overdue)'}</span></div></div>
+                          <div style={{ flex: 1, minWidth: 0 }}><p style={{ fontWeight: 600, fontSize: '14px', marginBottom: '6px', textDecoration: done ? 'line-through' : 'none', color: done ? 'var(--text-muted)' : 'var(--text-primary)' }}>{task.title}</p><div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}><span style={{ fontSize: '12px', color: course.color, fontWeight: 500 }}>{course.code}</span><span style={{ fontSize: '12px', color: isOverdue ? '#f7a6a6' : 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: '4px' }}>{Icons.clock}{new Date(task.dueDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}{isOverdue && ' (overdue)'}</span></div></div>
                           <motion.button whileHover={{ scale: 1.1 }} onClick={() => setAssignments(prev => prev.filter(a => a.id !== task.id))} style={{ background: 'none', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', padding: '6px' }}>{Icons.trash}</motion.button>
                         </div>
                       </Card>
@@ -548,11 +555,11 @@
           
           <div style={{ display: 'flex', gap: '8px', marginBottom: '24px', overflowX: 'auto', paddingBottom: '8px' }}>{sections.map((s, i) => <motion.button key={s.id} onClick={() => setSection(s.id)} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.05 }} style={{ background: section === s.id ? 'linear-gradient(135deg, var(--accent-purple) 0%, #818cf8 100%)' : 'var(--bg-tertiary)', border: '1px solid', borderColor: section === s.id ? 'transparent' : 'var(--border-medium)', borderRadius: 'var(--radius-md)', padding: '10px 16px', color: section === s.id ? '#fff' : 'var(--text-secondary)', fontSize: '13px', fontWeight: 500, fontFamily: 'inherit', cursor: 'pointer', whiteSpace: 'nowrap', display: 'flex', alignItems: 'center', gap: '6px' }}><span>{s.icon}</span>{s.label}</motion.button>)}</div>
           
-          {section === 'overview' && <StaggerContainer><div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '12px', marginBottom: '24px' }}>{[{ label: 'Applications', count: jobPrep.applications?.length || 0, color: '#fb923c' }, { label: 'Study Topics', count: jobPrep.studyTopics?.length || 0, color: '#a78bfa' }, { label: 'Resumes', count: jobPrep.resumes?.length || 0, color: '#60a5fa' }, { label: 'Letters', count: jobPrep.coverLetters?.length || 0, color: '#4ade80' }].map(st => <StaggerItem key={st.label}><Card style={{ padding: '18px' }}><p style={{ fontSize: '28px', fontWeight: 700, color: st.color, fontFamily: "'Fraunces', serif" }}>{st.count}</p><p style={{ fontSize: '12px', color: 'var(--text-muted)', textTransform: 'uppercase' }}>{st.label}</p></Card></StaggerItem>)}</div></StaggerContainer>}
+          {section === 'overview' && <StaggerContainer><div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '12px', marginBottom: '24px' }}>{[{ label: 'Applications', count: jobPrep.applications?.length || 0, color: '#ffcaa3' }, { label: 'Study Topics', count: jobPrep.studyTopics?.length || 0, color: '#c9b6ff' }, { label: 'Resumes', count: jobPrep.resumes?.length || 0, color: '#a7d4ff' }, { label: 'Letters', count: jobPrep.coverLetters?.length || 0, color: '#a9e9d2' }].map(st => <StaggerItem key={st.label}><Card style={{ padding: '18px' }}><p style={{ fontSize: '28px', fontWeight: 700, color: st.color, fontFamily: "'Fraunces', serif" }}>{st.count}</p><p style={{ fontSize: '12px', color: 'var(--text-muted)', textTransform: 'uppercase' }}>{st.label}</p></Card></StaggerItem>)}</div></StaggerContainer>}
           
-          {section === 'applications' && <FadeInView><div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}><h3 style={{ fontFamily: "'Fraunces', serif", fontSize: '16px', fontWeight: 600 }}>Applications</h3><Button size="sm" onClick={() => setShowAdd('applications')}>{Icons.plus} Add</Button></div>{(jobPrep.applications?.length || 0) === 0 ? <Card style={{ padding: '40px 20px', textAlign: 'center' }}><motion.span animate={{ y: [0, -5, 0] }} transition={{ duration: 1, repeat: Infinity }} style={{ fontSize: '40px', display: 'block', marginBottom: '12px' }}>🎯</motion.span><p style={{ color: 'var(--text-muted)' }}>No applications yet</p></Card> : <CardStack>{jobPrep.applications.map(app => <Card key={app.id} style={{ padding: '16px' }}><div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}><div style={{ flex: 1 }}><p style={{ fontWeight: 600, fontSize: '15px', marginBottom: '4px' }}>{app.company}</p><p style={{ fontSize: '13px', color: 'var(--text-secondary)', marginBottom: '8px' }}>{app.position}</p><Badge color={app.status === 'Applied' ? '#60a5fa' : app.status === 'Interview' ? '#4ade80' : app.status === 'Offer' ? '#a78bfa' : app.status === 'Rejected' ? '#f87171' : '#71717a'}>{app.status}</Badge></div><div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}><select value={app.status} onChange={(e) => updateItem('applications', app.id, { status: e.target.value })} style={{ background: 'var(--bg-tertiary)', border: '1px solid var(--border-medium)', borderRadius: 'var(--radius-sm)', padding: '4px 8px', color: 'var(--text-primary)', fontSize: '11px', fontFamily: 'inherit', cursor: 'pointer' }}><option value="Wishlist">Wishlist</option><option value="Applied">Applied</option><option value="Interview">Interview</option><option value="Offer">Offer</option><option value="Rejected">Rejected</option></select><motion.button whileHover={{ scale: 1.1 }} onClick={() => deleteItem('applications', app.id)} style={{ background: 'none', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', padding: '4px', alignSelf: 'flex-end' }}>{Icons.trash}</motion.button></div></div></Card>)}</CardStack>}</FadeInView>}
+          {section === 'applications' && <FadeInView><div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}><h3 style={{ fontFamily: "'Fraunces', serif", fontSize: '16px', fontWeight: 600 }}>Applications</h3><Button size="sm" onClick={() => setShowAdd('applications')}>{Icons.plus} Add</Button></div>{(jobPrep.applications?.length || 0) === 0 ? <Card style={{ padding: '40px 20px', textAlign: 'center' }}><motion.span animate={{ y: [0, -5, 0] }} transition={{ duration: 1, repeat: Infinity }} style={{ fontSize: '40px', display: 'block', marginBottom: '12px' }}>🎯</motion.span><p style={{ color: 'var(--text-muted)' }}>No applications yet</p></Card> : <CardStack>{jobPrep.applications.map(app => <Card key={app.id} style={{ padding: '16px' }}><div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}><div style={{ flex: 1 }}><p style={{ fontWeight: 600, fontSize: '15px', marginBottom: '4px' }}>{app.company}</p><p style={{ fontSize: '13px', color: 'var(--text-secondary)', marginBottom: '8px' }}>{app.position}</p><Badge color={app.status === 'Applied' ? '#a7d4ff' : app.status === 'Interview' ? '#a9e9d2' : app.status === 'Offer' ? '#c9b6ff' : app.status === 'Rejected' ? '#f7a6a6' : '#71717a'}>{app.status}</Badge></div><div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}><select value={app.status} onChange={(e) => updateItem('applications', app.id, { status: e.target.value })} style={{ background: 'var(--bg-tertiary)', border: '1px solid var(--border-medium)', borderRadius: 'var(--radius-sm)', padding: '4px 8px', color: 'var(--text-primary)', fontSize: '11px', fontFamily: 'inherit', cursor: 'pointer' }}><option value="Wishlist">Wishlist</option><option value="Applied">Applied</option><option value="Interview">Interview</option><option value="Offer">Offer</option><option value="Rejected">Rejected</option></select><motion.button whileHover={{ scale: 1.1 }} onClick={() => deleteItem('applications', app.id)} style={{ background: 'none', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', padding: '4px', alignSelf: 'flex-end' }}>{Icons.trash}</motion.button></div></div></Card>)}</CardStack>}</FadeInView>}
           
-          {section === 'study' && <FadeInView><div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}><h3 style={{ fontFamily: "'Fraunces', serif", fontSize: '16px', fontWeight: 600 }}>Study Topics</h3><Button size="sm" onClick={() => setShowAdd('studyTopics')}>{Icons.plus} Add</Button></div>{(jobPrep.studyTopics?.length || 0) === 0 ? <Card style={{ padding: '40px 20px', textAlign: 'center' }}><span style={{ fontSize: '40px', display: 'block', marginBottom: '12px' }}>📚</span><p style={{ color: 'var(--text-muted)' }}>No study topics yet</p></Card> : <CardStack>{jobPrep.studyTopics.map(t => <Card key={t.id} style={{ padding: '16px' }}><div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}><div style={{ flex: 1 }}><div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '6px' }}><motion.button whileHover={{ scale: 1.1 }} onClick={() => updateItem('studyTopics', t.id, { completed: !t.completed })} style={{ width: '20px', height: '20px', borderRadius: '4px', border: t.completed ? 'none' : '2px solid var(--border-medium)', background: t.completed ? 'var(--accent-green)' : 'transparent', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff' }}>{t.completed && Icons.check}</motion.button><p style={{ fontWeight: 600, fontSize: '14px', textDecoration: t.completed ? 'line-through' : 'none', color: t.completed ? 'var(--text-muted)' : 'var(--text-primary)' }}>{t.name}</p></div><div style={{ display: 'flex', gap: '8px', marginLeft: '30px' }}><Badge color={t.category === 'DSA' ? '#60a5fa' : t.category === 'System Design' ? '#4ade80' : t.category === 'ML' ? '#a78bfa' : '#71717a'}>{t.category}</Badge><Badge color={t.priority === 'High' ? '#f87171' : t.priority === 'Medium' ? '#facc15' : '#71717a'}>{t.priority}</Badge></div></div><motion.button whileHover={{ scale: 1.1 }} onClick={() => deleteItem('studyTopics', t.id)} style={{ background: 'none', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', padding: '4px' }}>{Icons.trash}</motion.button></div></Card>)}</CardStack>}</FadeInView>}
+          {section === 'study' && <FadeInView><div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}><h3 style={{ fontFamily: "'Fraunces', serif", fontSize: '16px', fontWeight: 600 }}>Study Topics</h3><Button size="sm" onClick={() => setShowAdd('studyTopics')}>{Icons.plus} Add</Button></div>{(jobPrep.studyTopics?.length || 0) === 0 ? <Card style={{ padding: '40px 20px', textAlign: 'center' }}><span style={{ fontSize: '40px', display: 'block', marginBottom: '12px' }}>📚</span><p style={{ color: 'var(--text-muted)' }}>No study topics yet</p></Card> : <CardStack>{jobPrep.studyTopics.map(t => <Card key={t.id} style={{ padding: '16px' }}><div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}><div style={{ flex: 1 }}><div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '6px' }}><motion.button whileHover={{ scale: 1.1 }} onClick={() => updateItem('studyTopics', t.id, { completed: !t.completed })} style={{ width: '20px', height: '20px', borderRadius: '4px', border: t.completed ? 'none' : '2px solid var(--border-medium)', background: t.completed ? 'var(--accent-green)' : 'transparent', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff' }}>{t.completed && Icons.check}</motion.button><p style={{ fontWeight: 600, fontSize: '14px', textDecoration: t.completed ? 'line-through' : 'none', color: t.completed ? 'var(--text-muted)' : 'var(--text-primary)' }}>{t.name}</p></div><div style={{ display: 'flex', gap: '8px', marginLeft: '30px' }}><Badge color={t.category === 'DSA' ? '#a7d4ff' : t.category === 'System Design' ? '#a9e9d2' : t.category === 'ML' ? '#c9b6ff' : '#71717a'}>{t.category}</Badge><Badge color={t.priority === 'High' ? '#f7a6a6' : t.priority === 'Medium' ? '#ffe6a7' : '#71717a'}>{t.priority}</Badge></div></div><motion.button whileHover={{ scale: 1.1 }} onClick={() => deleteItem('studyTopics', t.id)} style={{ background: 'none', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', padding: '4px' }}>{Icons.trash}</motion.button></div></Card>)}</CardStack>}</FadeInView>}
           
           {section === 'resumes' && <FadeInView><div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}><h3 style={{ fontFamily: "'Fraunces', serif", fontSize: '16px', fontWeight: 600 }}>Resumes</h3><Button size="sm" onClick={() => setShowAdd('resumes')}>{Icons.plus} Add</Button></div>{(jobPrep.resumes?.length || 0) === 0 ? <Card style={{ padding: '40px 20px', textAlign: 'center' }}><span style={{ fontSize: '40px', display: 'block', marginBottom: '12px' }}>📄</span><p style={{ color: 'var(--text-muted)' }}>No resumes yet</p></Card> : <CardStack>{jobPrep.resumes.map(r => <Card key={r.id} style={{ padding: '16px' }}><div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}><div><p style={{ fontWeight: 600, fontSize: '14px', marginBottom: '4px' }}>{r.name}</p><p style={{ fontSize: '12px', color: 'var(--text-muted)' }}>{r.targetRole || 'General'}</p></div><motion.button whileHover={{ scale: 1.1 }} onClick={() => deleteItem('resumes', r.id)} style={{ background: 'none', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', padding: '4px' }}>{Icons.trash}</motion.button></div></Card>)}</CardStack>}</FadeInView>}
           
@@ -590,7 +597,7 @@
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} style={{ padding: '24px 20px 120px' }}>
           <motion.h1 initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} style={{ fontFamily: "'Fraunces', serif", fontSize: '28px', fontWeight: 700, marginBottom: '24px' }}>Grades</motion.h1>
           <FadeInView><Card style={{ padding: '32px', textAlign: 'center', marginBottom: '24px', background: 'linear-gradient(135deg, rgba(167,139,250,0.15) 0%, rgba(96,165,250,0.1) 100%)' }}><p style={{ fontSize: '14px', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '8px' }}>Cumulative GPA</p><motion.p initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: "spring", delay: 0.2 }} style={{ fontSize: '56px', fontWeight: 700, fontFamily: "'Fraunces', serif", background: 'linear-gradient(135deg, var(--accent-purple) 0%, var(--accent-blue) 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', marginBottom: '8px' }}>{gpa()}</motion.p><p style={{ fontSize: '13px', color: 'var(--text-muted)' }}>Based on {grades.length} courses</p></Card></FadeInView>
-          <FadeInView delay={0.2}><div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}><h2 style={{ fontFamily: "'Fraunces', serif", fontSize: '18px', fontWeight: 600 }}>Course Grades</h2><Button size="sm" onClick={() => setShowAdd(true)}>{Icons.plus} Add</Button></div>{grades.length === 0 ? <Card style={{ padding: '40px 20px', textAlign: 'center' }}><motion.span animate={{ y: [0, -5, 0] }} transition={{ duration: 1, repeat: Infinity }} style={{ fontSize: '48px', display: 'block', marginBottom: '12px' }}>📊</motion.span><p style={{ color: 'var(--text-muted)' }}>No grades yet</p></Card> : <CardStack>{grades.map((g) => { const c = getCourse(g.courseId); return <Card key={g.id} style={{ padding: '16px', borderLeft: `3px solid ${c.color}` }}><div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}><div><p style={{ fontWeight: 600, fontSize: '14px', marginBottom: '4px' }}>{c.code}</p><p style={{ fontSize: '12px', color: 'var(--text-muted)' }}>{c.name}</p></div><div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}><div style={{ textAlign: 'right' }}><motion.p initial={{ scale: 0 }} animate={{ scale: 1 }} style={{ fontSize: '24px', fontWeight: 700, fontFamily: "'Fraunces', serif", color: g.grade.startsWith('A') ? '#4ade80' : g.grade.startsWith('B') ? '#60a5fa' : g.grade.startsWith('C') ? '#facc15' : '#f87171' }}>{g.grade}</motion.p><p style={{ fontSize: '11px', color: 'var(--text-muted)' }}>{g.credits} cr</p></div><motion.button whileHover={{ scale: 1.1 }} onClick={() => setGrades(p => p.filter(x => x.id !== g.id))} style={{ background: 'none', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', padding: '4px' }}>{Icons.trash}</motion.button></div></div></Card>; })}</CardStack>}</FadeInView>
+          <FadeInView delay={0.2}><div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}><h2 style={{ fontFamily: "'Fraunces', serif", fontSize: '18px', fontWeight: 600 }}>Course Grades</h2><Button size="sm" onClick={() => setShowAdd(true)}>{Icons.plus} Add</Button></div>{grades.length === 0 ? <Card style={{ padding: '40px 20px', textAlign: 'center' }}><motion.span animate={{ y: [0, -5, 0] }} transition={{ duration: 1, repeat: Infinity }} style={{ fontSize: '48px', display: 'block', marginBottom: '12px' }}>📊</motion.span><p style={{ color: 'var(--text-muted)' }}>No grades yet</p></Card> : <CardStack>{grades.map((g) => { const c = getCourse(g.courseId); return <Card key={g.id} style={{ padding: '16px', borderLeft: `3px solid ${c.color}` }}><div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}><div><p style={{ fontWeight: 600, fontSize: '14px', marginBottom: '4px' }}>{c.code}</p><p style={{ fontSize: '12px', color: 'var(--text-muted)' }}>{c.name}</p></div><div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}><div style={{ textAlign: 'right' }}><motion.p initial={{ scale: 0 }} animate={{ scale: 1 }} style={{ fontSize: '24px', fontWeight: 700, fontFamily: "'Fraunces', serif", color: g.grade.startsWith('A') ? '#a9e9d2' : g.grade.startsWith('B') ? '#a7d4ff' : g.grade.startsWith('C') ? '#ffe6a7' : '#f7a6a6' }}>{g.grade}</motion.p><p style={{ fontSize: '11px', color: 'var(--text-muted)' }}>{g.credits} cr</p></div><motion.button whileHover={{ scale: 1.1 }} onClick={() => setGrades(p => p.filter(x => x.id !== g.id))} style={{ background: 'none', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', padding: '4px' }}>{Icons.trash}</motion.button></div></div></Card>; })}</CardStack>}</FadeInView>
           <AddGradeModal isOpen={showAdd} onClose={() => setShowAdd(false)} />
         </motion.div>
       );
@@ -622,7 +629,11 @@
       return (
         <DataProvider>
           <div style={{ minHeight: '100vh', background: 'var(--bg-primary)', position: 'relative' }}>
-            <div style={{ position: 'fixed', top: 0, left: 0, right: 0, height: '400px', background: 'radial-gradient(ellipse at top, rgba(167,139,250,0.08) 0%, transparent 70%)', pointerEvents: 'none', zIndex: 0 }} />
+            <motion.div
+              animate={{ opacity: [0.6, 0.9, 0.6], scale: [1, 1.03, 1] }}
+              transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+              style={{ position: 'fixed', top: 0, left: 0, right: 0, height: '420px', background: 'radial-gradient(ellipse at top, rgba(201, 182, 255, 0.12) 0%, transparent 70%)', pointerEvents: 'none', zIndex: 0 }}
+            />
             <main style={{ position: 'relative', zIndex: 1 }}>
               <AnimatePresence mode="wait">
                 {activeTab === 'dashboard' && <Dashboard key="d" setActiveTab={setActiveTab} showAddModal={showAddModal} setShowAddModal={setShowAddModal} />}

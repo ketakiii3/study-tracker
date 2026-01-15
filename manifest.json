@@ -4,8 +4,8 @@
   "description": "Track assignments, grades, and career prep all in one place",
   "start_url": "/index.html",
   "display": "standalone",
-  "background_color": "#0a0a0f",
-  "theme_color": "#0a0a0f",
+  "background_color": "#0f111a",
+  "theme_color": "#0f111a",
   "orientation": "portrait-primary",
   "icons": [
     {
