@@ -25,13 +25,13 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
     
     :root {
-      --bg-primary: #0f111a;
-      --bg-secondary: #141826;
-      --bg-tertiary: #1b2030;
-      --bg-card: linear-gradient(135deg, rgba(27, 32, 48, 0.92) 0%, rgba(20, 24, 38, 0.92) 100%);
-      --text-primary: #f2f4f8;
-      --text-secondary: #c0c6d4;
-      --text-muted: #8a93a6;
+      --bg-primary: #f7f8fb;
+      --bg-secondary: #ffffff;
+      --bg-tertiary: #eef1f7;
+      --bg-card: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(240, 243, 250, 0.95) 100%);
+      --text-primary: #1c2230;
+      --text-secondary: #4b5565;
+      --text-muted: #7b8699;
       --accent-purple: #c9b6ff;
       --accent-blue: #a7d4ff;
       --accent-green: #a9e9d2;
@@ -39,9 +39,9 @@
       --accent-pink: #f7b7d3;
       --accent-red: #f7a6a6;
       --accent-yellow: #ffe6a7;
-      --border-subtle: rgba(255, 255, 255, 0.08);
-      --border-medium: rgba(255, 255, 255, 0.14);
-      --glass: rgba(255, 255, 255, 0.05);
+      --border-subtle: rgba(17, 24, 39, 0.06);
+      --border-medium: rgba(17, 24, 39, 0.12);
+      --glass: rgba(255, 255, 255, 0.6);
       --radius-sm: 8px;
       --radius-md: 12px;
       --radius-lg: 16px;
@@ -323,7 +323,7 @@
       ];
       
       return (
-        <nav style={{ position: 'fixed', bottom: 0, left: 0, right: 0, background: 'linear-gradient(to top, var(--bg-primary) 0%, rgba(10, 10, 15, 0.98) 100%)', backdropFilter: 'blur(20px)', borderTop: '1px solid var(--border-subtle)', padding: '12px 16px 28px', zIndex: 50 }}>
+        <nav style={{ position: 'fixed', bottom: 0, left: 0, right: 0, background: 'linear-gradient(to top, var(--bg-primary) 0%, rgba(247, 248, 251, 0.98) 100%)', backdropFilter: 'blur(20px)', borderTop: '1px solid var(--border-subtle)', padding: '12px 16px 28px', zIndex: 50 }}>
           <div style={{ display: 'flex', justifyContent: 'space-around', maxWidth: '500px', margin: '0 auto' }}>
             {tabs.map(tab => (
               <motion.button key={tab.id} onClick={() => setActiveTab(tab.id)} whileTap={{ scale: 0.9 }} whileHover={{ y: -2 }} style={{ background: 'none', border: 'none', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px', cursor: 'pointer', padding: '8px 12px', color: activeTab === tab.id ? 'var(--accent-purple)' : 'var(--text-muted)' }}>
